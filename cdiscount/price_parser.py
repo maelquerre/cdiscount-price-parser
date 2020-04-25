@@ -15,6 +15,6 @@ def parse_price(sku):
     response = requests.get(url)
 
     soup = BeautifulSoup(response.content, 'html.parser')
-    price_element = soup.find_all(class_=main_price_class)[0]
+    price_element = soup.find(class_=main_price_class)
 
     return price_element["content"]
