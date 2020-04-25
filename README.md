@@ -6,7 +6,7 @@ A Cdiscount price parser, written in Python.
 
 ### Prerequisites
 
-- Python 3
+- Python 3.6 or higher
 
 ### Installation
 
@@ -14,4 +14,3 @@ A Cdiscount price parser, written in Python.
 ```sh
 git clone https://github.com/maelquerre/cdiscount
 ```
-
