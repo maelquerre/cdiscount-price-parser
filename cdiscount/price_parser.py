@@ -19,7 +19,3 @@ def parse_price(sku):
     price_element = soup.find_all(class_=main_price_class)[0]
 
     return price_element["content"]
-
-
-if __name__ == "__main__":
-    print(parse_price("5225b006"))
