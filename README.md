@@ -2,7 +2,7 @@
 
 A Cdiscount price parser, written in Python.
 
-For the Python project, go to the [Python project README](cdiscount/README.md).
+For the Python part, see the [Python project](cdiscount).
 
 ## Getting started
 
