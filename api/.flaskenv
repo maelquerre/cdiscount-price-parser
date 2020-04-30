@@ -1,0 +1,2 @@
+FLASK_APP=price.py
+FLASK_ENV=development
