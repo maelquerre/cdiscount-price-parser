@@ -1,71 +1,71 @@
-'use strict';
+import React from 'react'
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       sku: '',
       price: null,
       requests: [],
       errors: []
-    };
+    }
 
-    this.fetchProductPrice = this.fetchProductPrice.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.fetchProductPrice = this.fetchProductPrice.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   fetchProductPrice(event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({
       price: null,
       errors: []
-    });
+    })
 
     if (this.state.sku.length <= 0) {
-      this.setState({ errors: ['Please provide a sku'] });
+      this.setState({ errors: ['Please provide a sku'] })
     } else {
-      const endpoint = `/api/price.py?sku=${this.state.sku}`;
-      const request = { path: endpoint };
+      const endpoint = `/api/price.py?sku=${this.state.sku}`
+      const request = { path: endpoint }
 
       fetch(endpoint)
         .then(response => {
           switch (response.status) {
             case 200:
-              request.status = 'success';
-              request.message = 'Success!';
-              break;
+              request.status = 'success'
+              request.message = 'Success!'
+              break
             case 404:
-              request.status = 'error';
-              request.message = 'This product could not be found.';
-              break;
+              request.status = 'error'
+              request.message = 'This product could not be found.'
+              break
             case 429:
-              request.status = 'error';
-              request.message = 'Too many requests, try again later.';
-              break;
+              request.status = 'error'
+              request.message = 'Too many requests, try again later.'
+              break
             case 500:
             case 501:
             case 502:
             case 503:
             case 504:
-              request.status = 'error';
-              request.message = 'There was an error with the server.';
-              break;
+              request.status = 'error'
+              request.message = 'There was an error with the server.'
+              break
           }
 
-          this.setState({ requests: [...this.state.requests, request] });
+          this.setState({ requests: [...this.state.requests, request] })
 
-          return response.json();
+          return response.json()
         })
         .then(data => {
-          this.setState({ price: data });
+          this.setState({ price: data })
         })
-        .catch(console.log);
+        .catch(console.log)
     }
   }
 
   handleInputChange(event) {
-    this.setState({ sku: event.target.value });
+    this.setState({ sku: event.target.value })
   }
 
   render() {
@@ -92,7 +92,7 @@ class App extends React.Component {
               return (
                 <p key={index}
                    className="error">{error}</p>
-              );
+              )
             })}
           </form>
 
@@ -112,12 +112,12 @@ class App extends React.Component {
                 <p className={request.status}>{request.path}</p>
                 <p className={request.status}>{request.message}</p>
               </React.Fragment>
-            );
+            )
           })}
         </div>}
       </div>
-    );
+    )
   }
 }
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+export default App
