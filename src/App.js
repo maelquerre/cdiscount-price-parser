@@ -24,7 +24,6 @@ class App extends React.Component {
     event.preventDefault()
     const endpoint = `/api/price.py?sku=${this.state.sku}`
     const requestId = this.uniqueId()
-    console.log(requestId)
 
     this.setState({
       price: null,
@@ -117,7 +116,8 @@ class App extends React.Component {
         </div>
 
 
-        {this.state.requests.length > 0 && <div className="logs">
+        {(this.state.requests.length > 0 || Object.values(this.state.queue).length > 0) &&
+        <div className="logs">
           <div className="logs-heading">Request</div>
           <div className="logs-heading">Info</div>
 
