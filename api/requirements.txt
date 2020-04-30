@@ -1,5 +1,4 @@
 beautifulsoup4==4.9.0
-cdiscount-price-parser-pkg-maelquerre @ file:cdiscount_price_parser_pkg_maelquerre-1.0.0-py3-none-any.whl
 certifi==2020.4.5.1
 chardet==3.0.4
 click==7.1.2
