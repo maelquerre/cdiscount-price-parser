@@ -19,7 +19,7 @@ def index(path):
                 response = "Product not found."
             else:
                 status = 200
-                response = price
+                response = str(price)
         except HTTPError as exception:
             status = exception.response.status_code
             response = exception.response.text
