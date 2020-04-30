@@ -22,7 +22,49 @@ h1 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
+}
+
+
+.form-wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+form {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+form .error {
+  margin-top: .25rem;
+}
+
+.price {
+  padding-top: 2rem;
+  font-size: 3rem;
+  font-weight: 500;
+  color: #0070f3;
+  letter-spacing: -0.025em;
+}
+
+@media (min-width: 640px) {
+  .form-wrapper {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  form {
+    padding-bottom: 0;
+    padding-right: 2rem;
+    border-bottom: 0;
+    border-right: 1px solid #eaeaea;
+  }
+
+  .price {
+    padding-top: 0;
+    padding-left: 2rem;
+  }
 }
 
 .logs {

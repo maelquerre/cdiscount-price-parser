@@ -14,7 +14,7 @@ class handler(BaseHTTPRequestHandler):
             try:
                 price = parse_price(product_sku)
 
-                if price is None:
+                if price is None: # The product could not be found
                     status_code = 404
                     response = "Product not found."
                 else:
