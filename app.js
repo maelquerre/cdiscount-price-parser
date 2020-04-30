@@ -75,8 +75,9 @@ class App extends React.Component {
 
         <div className="form-wrapper">
           <form onSubmit={this.fetchProductPrice}>
-            <label htmlFor="inputSku">Enter a product sku (ex:
-              del5397184246030)</label>
+            <label htmlFor="inputSku">
+              Enter a product sku (ex: del5397184246030)
+            </label>
             <input
               id="inputSku"
               autoFocus

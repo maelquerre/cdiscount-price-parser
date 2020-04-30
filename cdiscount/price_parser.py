@@ -10,7 +10,7 @@ def parse_price(sku):
     :return: The price of the product
 
     >>> parse_price("del5397184246030")
-    '1776.60'
+    1776.60
     """
     url = "https://www.cdiscount.com/f-0-" + sku + ".html"
     main_price_class = "fpPrice price jsMainPrice jsProductPrice hideFromPro"
@@ -21,4 +21,4 @@ def parse_price(sku):
     soup = BeautifulSoup(response.content, 'html.parser')
     price_element = soup.find(class_=main_price_class)
 
-    return price_element["content"] if price_element else None
+    return float(price_element["content"]) if price_element else None
