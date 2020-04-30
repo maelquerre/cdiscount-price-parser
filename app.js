@@ -16,51 +16,38 @@ class App extends React.Component {
 
   fetchProductPrice(event) {
     event.preventDefault();
+    this.setState({ price: null });
 
-    this.state.sku && fetch(`/api/price.py?sku=${this.state.sku}`)
+    const endpoint = `/api/price.py?sku=${this.state.sku}`;
+
+    const request = { path: endpoint };
+
+    this.state.sku && fetch(endpoint)
       .then(response => {
         switch (response.status) {
           case 200:
-            this.setState({
-              requests: [
-                ...this.state.requests,
-                {
-                  path: `/api/price.py?sku=${this.state.sku}`,
-                  status: 'success',
-                  message: 'Success'
-                }
-              ]
-            });
+            request.status = 'success';
+            request.message = 'Success!';
             break;
           case 404:
-            this.setState({
-              requests: [
-                ...this.state.requests,
-                {
-                  path: `/api/price.py?sku=${this.state.sku}`,
-                  status: 'error',
-                  message: 'This product could not be found.'
-                }
-              ]
-            });
+            request.status = 'error';
+            request.message = 'This product could not be found.';
+            break;
+          case 429:
+            request.status = 'error';
+            request.message = 'Too many requests. Try again later.';
             break;
           case 500:
           case 501:
           case 502:
           case 503:
           case 504:
-            this.setState({
-              requests: [
-                ...this.state.requests,
-                {
-                  path: `/api/price.py?sku=${this.state.sku}`,
-                  status: 'error',
-                  message: 'There was an error with the server.'
-                }
-              ]
-            });
+            request.status = 'error';
+            request.message = 'There was an error with the server.';
             break;
         }
+
+        this.setState({ requests: [...this.state.requests, request] });
 
         return response.json();
       })
@@ -97,7 +84,7 @@ class App extends React.Component {
 
         {this.state.requests.length > 0 && <div className="logs">
           <div className="logs-heading">Request</div>
-          <div className="logs-heading">Result</div>
+          <div className="logs-heading">Info</div>
 
           {this.state.requests.length > 0 && this.state.requests.map((request, index) => {
             return (

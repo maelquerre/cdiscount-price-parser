@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from html.parser import HTMLParser
 
 
 def parse_price(sku):
@@ -14,6 +13,7 @@ def parse_price(sku):
     main_price_class = "fpPrice price jsMainPrice jsProductPrice hideFromPro"
 
     response = requests.get(url)
+    response.raise_for_status()
 
     soup = BeautifulSoup(response.content, 'html.parser')
     price_element = soup.find(class_=main_price_class)

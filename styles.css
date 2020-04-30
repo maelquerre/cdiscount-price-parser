@@ -32,9 +32,11 @@ p {
 }
 
 .logs-heading {
-  color: #999;
-  text-transform: uppercase;
   margin-bottom: .5rem;
+  font-size: .75rem;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
 }
 
 .logs p {
@@ -42,7 +44,7 @@ p {
 }
 
 .error {
-  color: #c9332c;
+  color: #e00;
 }
 
 label {
@@ -77,7 +79,7 @@ input {
   margin-bottom: 1rem;
   padding: 0;
   font-family: Menlo, DejaVu Sans Mono, monospace;
-  font-size: 2rem;
+  font-size: 1.5rem;
   border: 0;
 }
 
