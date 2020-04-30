@@ -8,6 +8,9 @@ def parse_price(sku):
 
     :param sku: The unique identifier for the product
     :return: The price of the product
+
+    >>> parse_price("del5397184246030")
+    '1776.60'
     """
     url = "https://www.cdiscount.com/f-0-" + sku + ".html"
     main_price_class = "fpPrice price jsMainPrice jsProductPrice hideFromPro"

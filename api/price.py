@@ -1,5 +1,4 @@
 from http.server import BaseHTTPRequestHandler
-from datetime import datetime
 from requests.exceptions import HTTPError
 from urllib.parse import urlparse, parse_qs
 from cdiscount.price_parser import parse_price

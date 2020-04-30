@@ -41,7 +41,7 @@ class App extends React.Component {
               break;
             case 429:
               request.status = 'error';
-              request.message = 'Too many requests. Try again later.';
+              request.message = 'Too many requests, try again later.';
               break;
             case 500:
             case 501:
