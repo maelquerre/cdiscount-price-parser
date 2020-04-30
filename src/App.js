@@ -93,71 +93,77 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <h1>Cdiscount price parser</h1>
+        <div className="content container">
+          <h1>Cdiscount price parser</h1>
 
-        <div className="form-wrapper">
-          <form onSubmit={this.fetchProductPrice}>
-            <label htmlFor="inputSku">
-              Enter a product sku (ex: {EXAMPLE_SKU})
-            </label>
-            <input
-              id="inputSku"
-              autoFocus
-              placeholder="sku"
-              type="text"
-              value={this.state.sku}
-              onChange={this.handleInputChange}
-            />
+          <div className="form-wrapper">
+            <form onSubmit={this.fetchProductPrice}>
+              <label htmlFor="inputSku">
+                Enter a product sku (ex: {EXAMPLE_SKU})
+              </label>
+              <input
+                id="inputSku"
+                autoFocus
+                placeholder="sku"
+                type="text"
+                value={this.state.sku}
+                onChange={this.handleInputChange}
+              />
 
-            <button className="secondary"
-                    type="button"
-                    onClick={this.useExampleSku}>
-              Use example sku
-            </button>
-            <button className="primary"
-                    type="submit">
-              Get price
-            </button>
+              <button className="secondary"
+                      type="button"
+                      onClick={this.useExampleSku}>
+                Use example sku
+              </button>
+              <button className="primary"
+                      type="submit">
+                Get price
+              </button>
 
-            {this.state.errors.length > 0 && <div className="form-errors">
-              {this.state.errors.map((error, index) => {
-                return (
-                  <p key={index}
-                     className="error">{error}</p>
-                )
-              })}
+              {this.state.errors.length > 0 && <div className="form-errors">
+                {this.state.errors.map((error, index) => {
+                  return (
+                    <p key={index}
+                       className="error">{error}</p>
+                  )
+                })}
+              </div>}
+            </form>
+
+            {this.state.price && <div className="price">
+              {this.state.price}&nbsp;€
             </div>}
-          </form>
+          </div>
 
-          {this.state.price && <div className="price">
-            {this.state.price}&nbsp;€
+
+          {(this.state.requests.length > 0 || Object.values(this.state.queue).length > 0) &&
+          <div className="logs">
+            <div className="logs-heading">Request</div>
+            <div className="logs-heading">Info</div>
+
+            {this.state.requests.length > 0 && this.state.requests.map((request, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <p className={request.status}>{request.path}</p>
+                  <p className={request.status}>{request.message}</p>
+                </React.Fragment>
+              )
+            })}
+
+            {Object.values(this.state.queue).length > 0 && Object.values(this.state.queue).map((requestEndpoint, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <p>{requestEndpoint}</p>
+                  <p>Pending...</p>
+                </React.Fragment>
+              )
+            })}
           </div>}
         </div>
 
-
-        {(this.state.requests.length > 0 || Object.values(this.state.queue).length > 0) &&
-        <div className="logs">
-          <div className="logs-heading">Request</div>
-          <div className="logs-heading">Info</div>
-
-          {this.state.requests.length > 0 && this.state.requests.map((request, index) => {
-            return (
-              <React.Fragment key={index}>
-                <p className={request.status}>{request.path}</p>
-                <p className={request.status}>{request.message}</p>
-              </React.Fragment>
-            )
-          })}
-
-          {Object.values(this.state.queue).length > 0 && Object.values(this.state.queue).map((requestEndpoint, index) => {
-            return (
-              <React.Fragment key={index}>
-                <p>{requestEndpoint}</p>
-                <p>Pending...</p>
-              </React.Fragment>
-            )
-          })}
-        </div>}
+        <div className="footer">
+          <div className="container">Maël Querré & Paul Riffard, 2020</div>
+        </div>
       </div>
     )
   }
