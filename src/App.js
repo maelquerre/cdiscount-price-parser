@@ -1,5 +1,7 @@
 import React from 'react'
 
+const EXAMPLE_SKU = 'del5397184246030'
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -12,6 +14,7 @@ class App extends React.Component {
       queue: {}
     }
 
+    this.useExampleSku = this.useExampleSku.bind(this)
     this.fetchProductPrice = this.fetchProductPrice.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
   }
@@ -20,21 +23,26 @@ class App extends React.Component {
     return Math.random().toString(16).substr(2)
   }
 
+  useExampleSku() {
+    this.setState({ sku: EXAMPLE_SKU })
+  }
+
   fetchProductPrice(event) {
     event.preventDefault()
-    const endpoint = `/api/price.py?sku=${this.state.sku}`
-    const requestId = this.uniqueId()
 
     this.setState({
       price: null,
-      errors: [],
-      queue: { ...this.state.queue, [requestId]: endpoint }
+      errors: []
     })
 
     if (this.state.sku.length <= 0) {
       this.setState({ errors: ['Please provide a sku'] })
     } else {
+      const endpoint = `/api/price.py?sku=${this.state.sku}`
+      const requestId = this.uniqueId()
       const request = { path: endpoint }
+
+      this.setState({ queue: { ...this.state.queue, [requestId]: endpoint } })
 
       fetch(endpoint)
         .then(response => {
@@ -90,24 +98,35 @@ class App extends React.Component {
         <div className="form-wrapper">
           <form onSubmit={this.fetchProductPrice}>
             <label htmlFor="inputSku">
-              Enter a product sku (ex: del5397184246030)
+              Enter a product sku (ex: {EXAMPLE_SKU})
             </label>
             <input
               id="inputSku"
               autoFocus
               placeholder="sku"
               type="text"
+              value={this.state.sku}
               onChange={this.handleInputChange}
             />
 
-            <button type="submit">Get price</button>
+            <button className="secondary"
+                    type="button"
+                    onClick={this.useExampleSku}>
+              Use example sku
+            </button>
+            <button className="primary"
+                    type="submit">
+              Get price
+            </button>
 
-            {this.state.errors.length > 0 && this.state.errors.map((error, index) => {
-              return (
-                <p key={index}
-                   className="error">{error}</p>
-              )
-            })}
+            {this.state.errors.length > 0 && <div className="form-errors">
+              {this.state.errors.map((error, index) => {
+                return (
+                  <p key={index}
+                     className="error">{error}</p>
+                )
+              })}
+            </div>}
           </form>
 
           {this.state.price && <div className="price">

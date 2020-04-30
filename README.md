@@ -56,6 +56,3 @@ npm start
 ```
 
 These commands both start a development server on http://localhost:3000.
-
-
-
