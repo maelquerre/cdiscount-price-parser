@@ -96,12 +96,12 @@ form button + button {
   form {
     padding-bottom: 0;
     padding-right: 2rem;
-    border-bottom: 0;
   }
 
   .price {
     padding-top: 0;
     padding-left: 2rem;
+    border-top: 0;
     border-left: 1px solid #eaeaea;
   }
 }
