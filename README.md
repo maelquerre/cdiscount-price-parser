@@ -33,13 +33,13 @@ cd api/
 python3 -m venv venv
 ```
 3. Activate the environment
-``sh
+```sh
 source venv/bin/activate
-``
+```
 4. Install the dependencies from the `requirements.txt` file
-``sh
+```sh
 pip install -r requirements.txt
-``
+```
 
 ### Development
 
