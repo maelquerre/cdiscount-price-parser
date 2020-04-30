@@ -45,12 +45,12 @@ pip install -r requirements.txt
 
 The project uses [Python serverless API functions](https://vercel.com/docs/runtimes#advanced-usage/advanced-python-usage) from [Vercel Now](https://vercel.com/docs).
 
-Replicate the Vercel deployment environment locally:
+To replicate the Vercel deployment environment locally:
 ```sh
 now dev
 ```
 
-Start React App in development mode:
+Or, start React App in development mode:
 ```sh
 npm start
 ```
