@@ -8,24 +8,33 @@ class App extends React.Component {
       sku: '',
       price: null,
       requests: [],
-      errors: []
+      errors: [],
+      queue: {}
     }
 
     this.fetchProductPrice = this.fetchProductPrice.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
+  uniqueId() {
+    return Math.random().toString(16).substr(2)
+  }
+
   fetchProductPrice(event) {
     event.preventDefault()
+    const endpoint = `/api/price.py?sku=${this.state.sku}`
+    const requestId = this.uniqueId()
+    console.log(requestId)
+
     this.setState({
       price: null,
-      errors: []
+      errors: [],
+      queue: { ...this.state.queue, [requestId]: endpoint }
     })
 
     if (this.state.sku.length <= 0) {
       this.setState({ errors: ['Please provide a sku'] })
     } else {
-      const endpoint = `/api/price.py?sku=${this.state.sku}`
       const request = { path: endpoint }
 
       fetch(endpoint)
@@ -53,7 +62,13 @@ class App extends React.Component {
               break
           }
 
-          this.setState({ requests: [...this.state.requests, request] })
+          const newQueue = { ...this.state.queue }
+          delete newQueue[requestId]
+
+          this.setState({
+            queue: newQueue,
+            requests: [...this.state.requests, request]
+          })
 
           return response.json()
         })
@@ -111,6 +126,15 @@ class App extends React.Component {
               <React.Fragment key={index}>
                 <p className={request.status}>{request.path}</p>
                 <p className={request.status}>{request.message}</p>
+              </React.Fragment>
+            )
+          })}
+
+          {Object.values(this.state.queue).length > 0 && Object.values(this.state.queue).map((requestEndpoint, index) => {
+            return (
+              <React.Fragment key={index}>
+                <p>{requestEndpoint}</p>
+                <p>Pending...</p>
               </React.Fragment>
             )
           })}
