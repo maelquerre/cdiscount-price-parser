@@ -1,6 +1,4 @@
-from http.server import BaseHTTPRequestHandler
 from requests.exceptions import HTTPError
-from urllib.parse import urlparse, parse_qs
 from cdiscount.price_parser import parse_price
 from flask import Flask, request
 
