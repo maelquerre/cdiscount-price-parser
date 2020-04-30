@@ -9,12 +9,10 @@ class handler(BaseHTTPRequestHandler):
         query = parse_qs(urlparse(self.path).query)
         product_sku = query["sku"][0]
 
-        status_code = 200
-        message = ""
-
         if product_sku is not None:
             price = parse_price(product_sku)
             if price is not None:
+                status_code = 200
                 message = price
             else:
                 status_code = 404
