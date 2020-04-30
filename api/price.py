@@ -1,5 +1,5 @@
 from requests.exceptions import HTTPError
-from cdiscount.price_parser import parse_price
+from .cdiscount.price_parser import parse_price
 from flask import Flask, request
 
 app = Flask(__name__)
