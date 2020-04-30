@@ -1,33 +1,30 @@
 from http.server import BaseHTTPRequestHandler
 from datetime import datetime
-import urllib.parse
+from urllib.parse import urlparse, parse_qs
 from cdiscount.price_parser import parse_price
 
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        print('yes')
-        query = urllib.parse.parse_qs(self.path)
+        query = parse_qs(urlparse(self.path).query)
         product_sku = query["sku"][0]
 
-        if not product_sku:
-            self.send_response(404)
-            self.send_header("Content-type", "text/plain")
-            self.end_headers()
-            self.wfile.write("Product not found.")
-            return
+        status_code = 200
+        message = ""
 
-        price = parse_price(product_sku)
+        if product_sku is not None:
+            price = parse_price(product_sku)
+            if price is not None:
+                message = price
+            else:
+                status_code = 404
+                message = "Product not found."
+        else:
+            status_code = 404
+            message = "Product not found."
 
-        if not price:
-            self.send_response(404)
-            self.send_header("Content-type", "text/plain")
-            self.end_headers()
-            self.wfile.write("Product not found.")
-            return
-
-        self.send_response(200)
-        self.send_header("Content-type", "text/plain")
+        self.send_response(status_code)
+        self.send_header("Content-type", "text/json")
         self.end_headers()
-        self.wfile.write(price)
+        self.wfile.write(bytes(message, "utf-8"))
         return
