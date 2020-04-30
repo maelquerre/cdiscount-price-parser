@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from html.parser import HTMLParser
 
 
 def parse_price(sku):
@@ -17,4 +18,4 @@ def parse_price(sku):
     soup = BeautifulSoup(response.content, 'html.parser')
     price_element = soup.find(class_=main_price_class)
 
-    return price_element["content"]
+    return price_element["content"] if price_element else None
