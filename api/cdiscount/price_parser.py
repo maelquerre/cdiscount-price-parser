@@ -13,7 +13,7 @@ def parse_price(sku):
     1776.6
     """
     url = "https://www.cdiscount.com/f-0-" + sku + ".html"
-    main_price_class = "fpPrice price jsMainPrice jsProductPrice hideFromPro"
+    main_price_class = "fpPrice price priceColor jsMainPrice jsProductPrice hideFromPro"
 
     response = requests.get(url)
     response.raise_for_status()
